@@ -7,8 +7,16 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DrivetrainSubSystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubSystem;
+import frc.robot.subsystems.ShooterSubSystem;
+import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -21,10 +29,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DrivetrainSubSystem drivetrain = new DrivetrainSubSystem();
+  private final IntakeSubSystem intake = new IntakeSubSystem();
+  private final ShooterSubSystem shooter = new ShooterSubSystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  //private final CommandXboxController m_driverController =
+    //  new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+  private final CommandPS5Controller driver = 
+    new CommandPS5Controller(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,14 +55,34 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
+  //HAVE TO SET THE AXIS
   private void configureBindings() {
+    drivetrain.setDefaultCommand(
+      new RunCommand(() -> drivetrain.arcadeDrive(-driver.getRawAxis(1), -driver.getRawAxis(2)), drivetrain)
+    );
+
+    driver.L1().onTrue(new InstantCommand(()->{intake.setSpeed(0.5);}))
+    .onFalse(new InstantCommand(()->{intake.setSpeed(0);}));
+
+    driver.L2().onTrue(new InstantCommand(()->{intake.setSpeed(-0.5);}))
+    .onFalse(new InstantCommand(()->{intake.setSpeed(0);}));
+
+
+    driver.R1().onTrue(new InstantCommand(()->{shooter.setSpeed(1);}))
+    .onFalse(new InstantCommand(()->{shooter.setSpeed(0);}));
+
+    driver.R2().onTrue(new InstantCommand(()->{shooter.setSpeed(-0.5);}))
+    .onFalse(new InstantCommand(()->{shooter.setSpeed(0);}));
+        
+
+
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    //new Trigger(m_exampleSubsystem::exampleCondition)
+      //  .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**

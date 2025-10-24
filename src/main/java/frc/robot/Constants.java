@@ -16,4 +16,17 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  //HAVE TO UPDATE ALL OF THE CAN ID'S
+  public static class ShooterSubSystemConstants{
+    public static final int CAN_ID_SHOOTER = 0;
+  }
+
+  public static class IntakeSubSystemConstants{
+    public static final int CAN_ID_INTAKE = 0;
+  }
+
+  public static class DrivetrainSubSystemConstants{
+    public static final int CAN_ID_DRIVE_LEFT = 0;
+    public static final int CAN_ID_DRIVE_RIGHT = 0;
+  }
 }

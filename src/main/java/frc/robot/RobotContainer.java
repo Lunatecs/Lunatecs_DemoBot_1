@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootWithCodePID;
+import frc.robot.commands.ShootWithFalconPID;
 import frc.robot.subsystems.DrivetrainSubSystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubSystem;
@@ -73,6 +75,12 @@ public class RobotContainer {
 
     driver.R2().onTrue(new InstantCommand(()->{shooter.setSpeed(-0.5);}))
     .onFalse(new InstantCommand(()->{shooter.setSpeed(0);}));
+
+    driver.square().onTrue(new ShootWithCodePID(shooter, 100));
+
+    driver.triangle().onTrue(new ShootWithFalconPID(shooter, 100));
+
+    driver.circle().onTrue(new InstantCommand(()->{shooter.setSpeed(0);}));
         
 
 

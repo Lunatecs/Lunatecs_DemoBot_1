@@ -18,11 +18,11 @@ public final class Constants {
   }
   //HAVE TO UPDATE ALL OF THE CAN ID'S
   public static class ShooterSubSystemConstants{
-    public static final int CAN_ID_SHOOTER = 0;
+    public static final int CAN_ID_SHOOTER = 3;
   }
 
   public static class IntakeSubSystemConstants{
-    public static final int CAN_ID_INTAKE = 0;
+    public static final int CAN_ID_INTAKE = 4;
   }
 
   public static class DrivetrainSubSystemConstants{

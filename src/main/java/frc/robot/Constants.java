@@ -21,12 +21,16 @@ public final class Constants {
     public static final int CAN_ID_SHOOTER = 3;
   }
 
+  public static class FeederSubSystemConstants{
+    public static final int CAN_ID_FEEDER = 5;
+  }
+
   public static class IntakeSubSystemConstants{
     public static final int CAN_ID_INTAKE = 4;
   }
 
   public static class DrivetrainSubSystemConstants{
-    public static final int CAN_ID_DRIVE_LEFT = 0;
-    public static final int CAN_ID_DRIVE_RIGHT = 0;
+    public static final int CAN_ID_DRIVE_LEFT = 2;
+    public static final int CAN_ID_DRIVE_RIGHT = 1;
   }
 }
